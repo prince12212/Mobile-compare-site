@@ -1,0 +1,78 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mobile Comparison</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+<header class="bg-white shadow p-4 sticky top-0 z-50">
+<div class="max-w-6xl mx-auto flex justify-between items-center">
+<h1 class="text-xl font-bold">📱 Mobile Compare</h1>
+<input
+type="text"
+id="search"
+placeholder="Search mobiles..."
+class="border rounded px-4 py-2 w-60"
+oninput="filterMobiles()"
+/>
+</div>
+</header>
+
+<main class="max-w-6xl mx-auto p-6">
+<div id="mobile-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Phones will be inserted here by JS -->
+</div>
+</main>
+
+<script>
+const mobiles = [
+{ name: "iPhone 15 Pro", ram: "6GB", price: "₹1,34,900", camera: "48MP", battery: "3274mAh" },
+{ name: "Samsung Galaxy S23", ram: "8GB", price: "₹74,999", camera: "50MP", battery: "3900mAh" },
+{ name: "OnePlus 12", ram: "12GB", price: "₹64,999", camera: "50MP", battery: "5400mAh" },
+{ name: "Nothing Phone 2", ram: "8GB", price: "₹39,999", camera: "50MP", battery: "4700mAh" },
+{ name: "Redmi Note 13 Pro", ram: "8GB", price: "₹25,999", camera: "200MP", battery: "5100mAh" }
+];
+
+function renderMobiles(data) {
+const container = document.getElementById("mobile-list");
+container.innerHTML = "";
+
+data.forEach(mobile => {
+container.innerHTML += `
+<div class="bg-white p-5 rounded-xl shadow hover:shadow-lg transition-all">
+<h2 class="text-lg font-bold mb-2">📱 ${mobile.name}</h2>
+<ul class="text-sm space-y-1 mb-3">
+<li><strong>RAM:</strong> ${mobile.ram}</li>
+<li><strong>Camera:</strong> ${mobile.camera}</li>
+<li><strong>Battery:</strong> ${mobile.battery}</li>
+<li><strong>Price:</strong> ${mobile.price}</li>
+</ul>
+<button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+Compare ➜
+</button>
+</div>
+`;
+});
+}
+
+function filterMobiles() {
+const query = document.getElementById("search").value.toLowerCase();
+const filtered = mobiles.filter(m =>
+m.name.toLowerCase().includes(query)
+);
+renderMobiles(filtered);
+}
+
+// Initial render
+renderMobiles(mobiles);
+</script>
+
+</body>
+</html>
+
+
